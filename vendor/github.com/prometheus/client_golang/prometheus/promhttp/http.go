@@ -61,7 +61,7 @@ func CheckInIpWhitelist(w http.ResponseWriter, r *http.Request, ipWhitelist []*n
 			return true
 		}
 	}
-	http.Error(w, "What the fuck?", 403)
+	http.Error(w, "403 forbidden.", 403)
 	return false
 }
 
