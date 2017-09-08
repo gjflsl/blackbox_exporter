@@ -58,13 +58,16 @@ scrape_configs:
         - http://prometheus.io    # Target to probe with http.
         - https://prometheus.io   # Target to probe with https.
         - http://example.com:8080 # Target to probe with http on port 8080.
+        labels:
+          config: "{\"http\":{\"Method\":\"GET\",\"NoFollowRedirects\":true}}"
+
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
-     - source_labels: [__param_config]
-        target_label: config # Config recover blackbox.yml
+      - source_labels: [config]
+        target_label: __param_config
       - target_label: __address__
         replacement: 127.0.0.1:9115  # Blackbox exporter.
 ```
